@@ -1,57 +1,73 @@
-import { Pool } from "pg";
 import { Etudiant } from "../model/Etudiant.js";
+import { Pool } from "pg";
 
 export class EtudiantRepository {
-  constructor(private db: Pool) {}
+  constructor(private readonly db: Pool) {}
 
-  async trouverTous(): Promise<Etudiant[]> {
+  async findById(id: string): Promise<Etudiant | null> {
     const result = await this.db.query(
-      "SELECT * FROM etudiants"
-    );
-
-    return result.rows;
-  }
-
-  async trouverParId(id: number): Promise<Etudiant | null> {
-    const result = await this.db.query(
-      "SELECT * FROM etudiants WHERE id = $1",
+      `
+      SELECT id, first_name, last_name, email, password
+      FROM etudiants
+      WHERE id = $1
+      `,
       [id]
     );
 
-    return result.rows.length === 0 ? null : result.rows[0];
+    if (result.rows.length === 0) {
+      return null;
+    }
+
+    const row = result.rows[0];
+
+    return {
+      id: row.id,
+      firstName: row.first_name,
+      lastName: row.last_name,
+      email: row.email,
+      password: row.password
+    };
   }
 
-  async creer(nom: string, age: number): Promise<Etudiant> {
+  async findByEmail(email: string): Promise<Etudiant | null> {
     const result = await this.db.query(
-      "INSERT INTO etudiants (nom, age) VALUES ($1, $2) RETURNING *",
-      [nom, age]
+      `
+      SELECT id, first_name, last_name, email, password
+      FROM etudiants
+      WHERE email = $1
+      `,
+      [email]
     );
 
-    return result.rows[0];
+    if (result.rows.length === 0) {
+      return null;
+    }
+
+    const row = result.rows[0];
+
+    return {
+      id: row.id,
+      firstName: row.first_name,
+      lastName: row.last_name,
+      email: row.email,
+      password: row.password
+    };
   }
 
-  async modifier(
-    id: number,
-    nom: string,
-    age: number
-  ): Promise<Etudiant | null> {
+  async findAll(): Promise<Etudiant[]> {
     const result = await this.db.query(
-      `UPDATE etudiants
-       SET nom = $1, age = $2
-       WHERE id = $3
-       RETURNING *`,
-      [nom, age, id]
+      `
+      SELECT id, first_name, last_name, email, password
+      FROM etudiants
+      `
     );
 
-    return result.rows.length === 0 ? null : result.rows[0];
-  }
-
-  async supprimer(id: number): Promise<Etudiant | null> {
-    const result = await this.db.query(
-      "DELETE FROM etudiants WHERE id = $1 RETURNING *",
-      [id]
-    );
-
-    return result.rows.length === 0 ? null : result.rows[0];
+    return result.rows.map((row) => ({
+      id: row.id,
+      firstName: row.first_name,
+      lastName: row.last_name,
+      email: row.email,
+      password: row.password
+    }));
   }
 }
