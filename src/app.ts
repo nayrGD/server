@@ -2,14 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import { Pool } from "pg";
 
-import { EtudiantRepository } from "./repository/EtudiantRepository.js";
-import { EtudiantService } from "./service/EtudiantService.js";
-import { EtudiantController } from "./controller/EtudiantController.js";
+import { EtudiantRepository } from "./repository/studentRepository.js";
+import { EtudiantService } from "./service/studentService.js";
+import { EtudiantController } from "./controller/studentController.js";
 
 import { AuthService } from "./service/AuthService.js";
 import { AuthController } from "./controller/AuthController.js";
 
-import { createEtudiantRoutes } from "./routes/etudiantRoutes.js";
+import { createEtudiantRoutes } from "./routes/studentRoutes.js";
 
 dotenv.config();
 

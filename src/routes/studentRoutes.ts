@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { EtudiantController } from "../controller/EtudiantController.js";
+import { EtudiantController } from "../controller/studentController.js";
 
 export const createEtudiantRoutes = (
   controller: EtudiantController

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { EtudiantService } from "../service/EtudiantService.js";
+import { EtudiantService } from "../service/studentService.js";
 
 export class EtudiantController {
   constructor(private readonly service: EtudiantService) {}

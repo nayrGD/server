@@ -1,4 +1,4 @@
-import { Etudiant } from "../model/Etudiant.js";
+import { Etudiant } from "../model/student.js";
 import { Pool } from "pg";
 
 export class EtudiantRepository {
