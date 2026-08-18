@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { EtudiantRepository } from "../repository/studentRepository.js";
+import { EtudiantRepository } from "../repository/StudentRepository.js";
 
 export class AuthService {
   constructor(

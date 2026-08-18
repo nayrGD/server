@@ -1,18 +1,18 @@
-import { Etudiant } from "../model/student.js";
-import { EtudiantRepository } from "../repository/studentRepository.js";
+import { Student } from "../model/student";
+import { StudentRepository } from "../repository/studentRepository.js";
 
-export class EtudiantService {
-  constructor(private readonly repository: EtudiantRepository) {}
+export class StudentService {
+  constructor(private readonly repository: StudentRepository) {}
 
-  async findAll(): Promise<Etudiant[]> {
+  async findAll(): Promise<Student[]> {
     return await this.repository.findAll();
   }
 
-  async findById(id: string): Promise<Etudiant | null> {
+  async findById(id: string): Promise<Student | null> {
     return await this.repository.findById(id);
   }
 
-  async findByEmail(email: string): Promise<Etudiant | null> {
+  async findByEmail(email: string): Promise<Student| null> {
     return await this.repository.findByEmail(email);
   }
 }

@@ -1,10 +1,10 @@
-import { Etudiant } from "../model/student.js";
+import { Student } from "../model/student";
 import { Pool } from "pg";
 
-export class EtudiantRepository {
+export class StudentRepository {
   constructor(private readonly db: Pool) {}
 
-  async findById(id: string): Promise<Etudiant | null> {
+  async findById(id: string): Promise<Student | null> {
     const result = await this.db.query(
       `
       SELECT id, first_name, last_name, email, password
@@ -29,7 +29,7 @@ export class EtudiantRepository {
     };
   }
 
-  async findByEmail(email: string): Promise<Etudiant | null> {
+  async findByEmail(email: string): Promise<Student | null> {
     const result = await this.db.query(
       `
       SELECT id, first_name, last_name, email, password
@@ -54,7 +54,7 @@ export class EtudiantRepository {
     };
   }
 
-  async findAll(): Promise<Etudiant[]> {
+  async findAll(): Promise<Student[]> {
     const result = await this.db.query(
       `
       SELECT id, first_name, last_name, email, password

@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { EtudiantService } from "../service/studentService.js";
+import { StudentService } from "../service/studentService";
 
-export class EtudiantController {
-  constructor(private readonly service: EtudiantService) {}
+export class StudentController {
+  constructor(private readonly service: StudentService) {}
 
   findAll = async (req: Request, res: Response): Promise<void> => {
-    const etudiants = await this.service.findAll();
+    const student = await this.service.findAll();
 
-    res.json(etudiants);
+    res.json(student);
   };
 
   findById = async (req: Request, res: Response): Promise<void> => {
@@ -15,16 +15,16 @@ export class EtudiantController {
       ? req.params.id[0]
       : req.params.id;
 
-    const etudiant = await this.service.findById(id);
+    const student= await this.service.findById(id);
 
-    if (etudiant === null) {
+    if (student === null) {
       res.status(404).json({
-        message: "Etudiant not found"
+        message: "student not found"
       });
       return;
     }
 
-    res.json(etudiant);
+    res.json(student);
   };
 
   findByEmail = async (req: Request, res: Response): Promise<void> => {
@@ -32,15 +32,15 @@ export class EtudiantController {
       ? req.params.email[0]
       : req.params.email;
 
-    const etudiant = await this.service.findByEmail(email);
+    const student = await this.service.findByEmail(email);
 
-    if (etudiant === null) {
+    if (student === null) {
       res.status(404).json({
-        message: "Etudiant not found"
+        message: "student not found"
       });
       return;
     }
 
-    res.json(etudiant);
+    res.json(student);
   };
 }

@@ -2,14 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import { Pool } from "pg";
 
-import { EtudiantRepository } from "./repository/studentRepository.js";
-import { EtudiantService } from "./service/studentService.js";
-import { EtudiantController } from "./controller/studentController.js";
+import { StudentRepository } from "./repository/studentRepository";
+import { StudentService } from "./service/studentService";
+import { StudentController } from "./controller/studentController";
 
-import { AuthService } from "./service/AuthService.js";
-import { AuthController } from "./controller/AuthController.js";
+import { AuthService } from "./service/AuthService";
+import { AuthController } from "./controller/AuthController";
 
-import { createEtudiantRoutes } from "./routes/studentRoutes.js";
+import { createStudentRoutes } from "./routes/studentRoutes";
 
 dotenv.config();
 
@@ -25,18 +25,18 @@ const db = new Pool({
   port: Number(process.env.DB_PORT)
 });
 
-const etudiantRepository = new EtudiantRepository(db);
+const studentRepository = new StudentRepository(db);
 
-const etudiantService = new EtudiantService(
-  etudiantRepository
+const studentService = new StudentService(
+  studentRepository
 );
 
-const etudiantController = new EtudiantController(
-  etudiantService
+const studentController = new StudentController(
+  studentService
 );
 
 const authService = new AuthService(
-  etudiantRepository
+  studentRepository
 );
 
 const authController = new AuthController(
@@ -49,8 +49,8 @@ app.post(
 );
 
 app.use(
-  "/etudiants",
-  createEtudiantRoutes(etudiantController)
+  "/student",
+  createStudentRoutes(studentController)
 );
 
 app.listen(3000, () => {
