@@ -2,9 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import { Pool } from "pg";
 
-import { StudentRepository } from "./repository/studentRepository";
-import { StudentService } from "./service/studentService";
-import { StudentController } from "./controller/studentController";
+import { StudentRepository } from "./repository/StudentRepository";
+import { StudentService } from "./service/StudentService";
+import { StudentController } from "./controller/StudentController";
 
 import { AuthService } from "./service/AuthService";
 import { AuthController } from "./controller/AuthController";

@@ -1,25 +1,25 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { EtudiantRepository } from "../repository/StudentRepository.js";
+import { StudentRepository } from "../repository/StudentRepository";
 
 export class AuthService {
   constructor(
-    private readonly etudiantRepository: EtudiantRepository
+    private readonly studentRepository: StudentRepository
   ) {}
 
   async login(
     email: string,
     password: string
   ): Promise<string | null> {
-    const etudiant = await this.etudiantRepository.findByEmail(email);
+    const student = await this.studentRepository.findByEmail(email);
 
-    if (!etudiant) {
+    if (!student) {
       return null;
     }
 
     const passwordCorrect = await bcrypt.compare(
       password,
-      etudiant.password
+      student.password
     );
 
     if (!passwordCorrect) {
@@ -36,8 +36,8 @@ export class AuthService {
 
     const token = jwt.sign(
       {
-        userId: etudiant.id,
-        email: etudiant.email
+        userId:student.id,
+        email: student.email
       },
       secret,
       {

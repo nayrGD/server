@@ -1,5 +1,5 @@
 import { Student } from "../model/student";
-import { StudentRepository } from "../repository/studentRepository.js";
+import { StudentRepository } from "../repository/StudentRepository";
 
 export class StudentService {
   constructor(private readonly repository: StudentRepository) {}
